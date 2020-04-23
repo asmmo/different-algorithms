@@ -15,5 +15,5 @@ long long gcd( long long m, long long n )
 
 
 int main(){
-    std::cout <<gcd(2,30);
+    std::cout << gcd(2,30);
 }
