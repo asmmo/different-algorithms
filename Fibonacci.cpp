@@ -1,4 +1,4 @@
-//c++20  https://godbolt.org/z/decnW8
+//c++17 at least  https://godbolt.org/z/9c3v6G
 #include <iostream>
 #include <array>
 
