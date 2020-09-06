@@ -1,19 +1,42 @@
+//at least c++20
+//Euclid’s rule If x and y are positive integers with x ≥ y, then gcd(x, y) = gcd(x mod y, y).
+//https://godbolt.org/z/Kfbfac
 #include <iostream>
+#include <concepts>
 
-//Euclid's algorithm O(log(N))
-long long gcd( long long m, long long n )
+struct gcd
 {
-    if ( m < n ) return gcd(n, m);
-    while( n != 0 )
+
+    template <uint64_t m, uint64_t n> requires (n!=0 || m!=0)
+    constexpr static uint64_t recursive( )
     {
-        long long rem = m % n;
-        m = n;
-        n = rem;
+        if constexpr( n == 0) return m;
+        else if constexpr ( m < n ) return recursive<m, n % m>();
+        else return recursive<n, m % n>();
     }
-    return m;
-}
+
+    template < uint64_t m, uint64_t n> requires (n!=0 || m!=0)
+    constexpr static uint64_t iterative(uint64_t m_ = m, uint64_t n_ = n)
+    {
+
+        while( n_ != 0 && m_ != 0 )
+        {
+            uint64_t rem = m_ % n_;
+            m_ = n_;
+            n_ = rem;
+        }
+        return m_;
+    }
+
+};
+
 
 
 int main(){
-    std::cout << gcd(2,30);
+
+
+    std::cout
+//          << " " << gcd::iterative<0, 0>()
+            << " " << gcd::iterative<27, 21>()
+            << " " << gcd::recursive<27, 21>();
 }
