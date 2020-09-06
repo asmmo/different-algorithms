@@ -1,4 +1,4 @@
-//c++20
+//c++20  https://godbolt.org/z/decnW8
 #include <iostream>
 #include <array>
 
