@@ -40,3 +40,9 @@ int main(){
             << " " << gcd::iterative<27, 21>()
             << " " << gcd::recursive<27, 21>();
 }
+
+
+/*
+after any two consecutive rounds, m and n, are at the very least halved in value (i.e) the length of each decreases by at least one bit. If
+they are initially n-bit, then the base case will be reached within 2n iterations. And since the mode is a quadratic-time in bits, the total time is O(n3).
+*/
