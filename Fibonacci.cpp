@@ -1,3 +1,4 @@
+//c++20
 #include <iostream>
 #include <array>
 
@@ -37,13 +38,18 @@ private:
             lhs[1][0]*rhs[0][1]+lhs[1][1]*rhs[1][1]}
             };
     }
-    constexpr static Mat power(Mat X, uint32_t m)
+
+    template<uint32_t m = n>
+    constexpr static Mat power(Mat X)
     {
-        if (m == 0) return {Row{1,0}, Row{0, 1}}; //the identity matrix
-        if (m == 1) return X;
-        auto temp = power(X, m/2);
-        if (n % 2 == 0) return muliplyMats(temp, temp);
-        return muliplyMats(muliplyMats(temp, temp),  X);
+        if constexpr (m == 0) return Mat{Row{1,0}, Row{0, 1}}; //the identity matrix
+        if constexpr (m == 1) return X;
+        else
+        {
+            auto temp = power<m/2>(X);
+            if constexpr (n % 2 == 0) return muliplyMats(temp, temp);
+            return muliplyMats(muliplyMats(temp, temp),  X);
+        }
     }
 public:
     template<uint32_t m = n>
@@ -51,7 +57,7 @@ public:
     {
         if (m < 2) return m;
          auto X = Mat{Row{0, 1}, Row{1, 1}}; //matrix or 2d array
-         auto temp = power(X, m);
+         auto temp = power<m>(X);
          return temp[0][1]; //note that the indices start from 0
     }
 
