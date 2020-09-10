@@ -2,14 +2,14 @@
 #include <list>
 #include <numeric>
 
-uint64_t recursivePowi(uint32_t x, uint32_t y){
+uint64_t recursivePowInt(uint32_t x, uint32_t y){
     if(!y) return 1;
-    auto temp = recursivePowi(x, y/2);
+    auto temp = recursivePowInt(x, y/2);
     if(y % 2 == 0) return temp * temp;
     return temp * temp * x;
 }
 
-uint64_t powi(uint32_t x, uint32_t y){
+uint64_t powInt(uint32_t x, uint32_t y){
     if (!y) return 1;
     std::list<uint64_t> ls;
     uint64_t res = x;
@@ -23,10 +23,10 @@ uint64_t powi(uint32_t x, uint32_t y){
 int main(){
 
     uint64_t x = 0;
-    for(uint32_t j{}; j<32;++j) x+= powi(2,j);
+    for(uint32_t j{}; j<32;++j) x+= powInt(2,j);
 
     uint64_t recursiveX = 0;
-    for(uint32_t j{}; j<32;++j) recursiveX+= recursivePowi(2,j);
+    for(uint32_t j{}; j<32;++j) recursiveX+= recursivePowInt(2,j);
 
     std::cout << powi(2, 32) - 1 << "\n" << x << " " << recursiveX << " " << std::numeric_limits<uint32_t>::max();
 }
